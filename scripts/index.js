@@ -12,26 +12,28 @@ const container = document.querySelector('.content');
 const cardSection = container.querySelector('.places')
 const cardContainer = cardSection.querySelector('.places__list');
 
-function addCard(initialCards, deletCard) {
+function addCard(initialCard, deletCard) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+
+    const cardImage = cardElement.querySelector('.card__image');
     
-    cardElement.querySelector('.card__image').src = initialCards.link;
-    cardElement.querySelector('.card__image').alt = initialCards.name;
-    cardElement.querySelector('.card__title').textContent = initialCards.name;
+    cardImage.src = initialCard.link;
+    cardImage.alt = initialCard.name;
+    cardElement.querySelector('.card__title').textContent = initialCard.name;
 
-    cardContainer.append(cardElement);
+    const cardButton = cardElement.querySelector('.card__delete-button');
+    cardButton.addEventListener('click', deletCard);
 
-    const cardDelet = cardElement.querySelector('.card__delete-button');
-    cardDelet.addEventListener('click', deletCard);
-
+    return cardElement
 }
 
-function deletCard(){
-    const cardElement = document.querySelector('.card');
-    cardElement.remove();
+function deletCard(event) {
+    const cardDelete = event.target.closest('.card');
+    cardDelete.remove();
 }
 
-initialCards.forEach(function(cardElement) {
-    addCard(cardElement, deletCard)
+initialCards.forEach(function(initialCard) {
+    const newCard = addCard(initialCard, deletCard);
+    cardContainer.append(newCard);
 });
