@@ -22,4 +22,4 @@ function closeModal(element) {
     element.removeEventListener('mousedown', closeOverlayModal)
 };
 
-export {openModal, closeModal}
+export { openModal, closeModal }

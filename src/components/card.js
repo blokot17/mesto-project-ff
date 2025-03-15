@@ -11,6 +11,10 @@ function addCard(initialCard, deletCard, likeCard, showImg) {
     const cardButton = cardElement.querySelector('.card__delete-button');
     cardButton.addEventListener('click', deletCard);
 
+    cardElement.querySelector('.card__like-button').addEventListener('click', likeCard);
+    
+    cardImage.addEventListener('click', showImg);
+
     return cardElement
 };
 
@@ -20,9 +24,7 @@ function deletCard(evt) {
 };
 
 function likeCard(evt) {
-    if (evt.target.classList.contains('card__like-button')) {
-        evt.target.classList.toggle('card__like-button_is-active')
-    }
+   evt.target.classList.toggle('card__like-button_is-active')
 };
 
 export{addCard, deletCard, likeCard};
