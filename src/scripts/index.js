@@ -58,7 +58,7 @@ profileForm.addEventListener('submit', handleFormSubmit);
 
 openProfileBtn.addEventListener('click', function () {
     openModal(profilePopup);
-    fillInputsProfileill();
+    fillInputsProfile()
 });
 
 closeProfileBtn.addEventListener('click', function () {
