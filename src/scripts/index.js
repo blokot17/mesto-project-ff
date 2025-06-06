@@ -4,7 +4,7 @@ import { addCard, likeCard } from '../components/card.js';
 
 import { openModal, closeModal } from '../components/modal.js';
 
-import { enableValidation, validationConfig, clearValidation } from '../components/validation.js';
+import { enableValidation, clearValidation } from '../components/validation.js';
 
 import { getUserData, getInitialCard, editProfile, addNewCard, editAvatar } from '../components/api.js';
 
@@ -43,6 +43,15 @@ const avatarInput = avatarPopup.querySelector('.popup__input_type_avatar-url');
 const openAvatarBtn = document.querySelector('.profile__avatar-edit-button');
 const closeAvatarBtn = avatarPopup.querySelector('.popup__close');
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
 function renderLoading(isLoading, buttonElement, loadingText = 'Сохранение...') {
     const originalText = buttonElement.dataset.originalText || buttonElement.textContent;
 
@@ -58,7 +67,7 @@ function renderLoading(isLoading, buttonElement, loadingText = 'Сохранен
 
 openAvatarBtn.addEventListener('click', function() {
     avatarForm.reset();
-    clearValidation(avatarForm, enableValidation);
+    clearValidation(avatarForm, validationConfig);
     openModal(avatarPopup);
 });
 
@@ -121,7 +130,7 @@ profileForm.addEventListener('submit', handleFormSubmit);
 
 openProfileBtn.addEventListener('click', function () {
     fillInputsProfile()
-    clearValidation(profileForm, enableValidation)
+    clearValidation(profileForm, validationConfig)
     openModal(profilePopup);
 });
 
@@ -156,7 +165,7 @@ function handleCardFormSubmit(evt) {
 cardForm.addEventListener('submit', handleCardFormSubmit);
 
 openCardBtn.addEventListener('click', function () {
-    clearValidation(cardForm, enableValidation)
+    clearValidation(cardForm, validationConfig)
     openModal(cardPopup)
 });
 
@@ -182,7 +191,7 @@ document.querySelectorAll('.popup').forEach(function (element) {
     element.classList.add('popup_is-animated')
 });
 
-validationConfig(enableValidation);
+enableValidation(validationConfig);
 
 Promise.all([getUserData(), getInitialCard()])
     .then(([userData, cards]) => {

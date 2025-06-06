@@ -1,12 +1,3 @@
-const enableValidation = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
-
 function showInputError(formElement, inputElement, errorMessage, 
 inputErrorClass, errorClass) {
     const errorElement = formElement.querySelector(`.${inputElement.name}_input_error`);
@@ -67,30 +58,30 @@ function setEventListeners(formElement, inputSelector, inputErrorClass, errorCla
     });
 };
 
-function validationConfig(enableValidation) {
-    const formList = Array.from(document.querySelectorAll(enableValidation.formSelector));
+function enableValidation(validationConfig) {
+    const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
     formList.forEach((formElement) => {
         formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
         setEventListeners(formElement, 
-            enableValidation.inputSelector, 
-            enableValidation.inputErrorClass, 
-            enableValidation.errorClass, 
-            enableValidation.submitButtonSelector, 
-            enableValidation.inactiveButtonClass);
+            validationConfig.inputSelector, 
+            validationConfig.inputErrorClass, 
+            validationConfig.errorClass, 
+            validationConfig.submitButtonSelector, 
+            validationConfig.inactiveButtonClass);
     });
 };
 
-function clearValidation(formElement, enableValidation) {
-    const inputList = Array.from(formElement.querySelectorAll(enableValidation.inputSelector));
-    const buttonElement = formElement.querySelector(enableValidation.submitButtonSelector);
+function clearValidation(formElement, validationConfig) {
+    const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
+    const buttonElement = formElement.querySelector(validationConfig.submitButtonSelector);
     inputList.forEach((inputElement) => {
-        hideInputError(formElement, inputElement, enableValidation.inputErrorClass, enableValidation.errorClass);
+        hideInputError(formElement, inputElement, validationConfig.inputErrorClass, validationConfig.errorClass);
         inputElement.setCustomValidity('');
     });
 
-    toggleButtonState(inputList, buttonElement, enableValidation.inactiveButtonClass);
+    toggleButtonState(inputList, buttonElement, validationConfig.inactiveButtonClass);
 };
 
-export{enableValidation, validationConfig, clearValidation};
+export{enableValidation, clearValidation};
